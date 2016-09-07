@@ -6,7 +6,7 @@ public class InsertionSort {
 
     public static void main(String[] args) {
 		System.out.println("Before: " + Arrays.toString(a));
-		insertionSort(a);
+		optimizedInsertionSort(a);
 		System.out.println("After: " + Arrays.toString(a));
 	}
 	
@@ -15,6 +15,18 @@ public class InsertionSort {
 			for (int j = i; j > 0 && a[j-1] > a[j]; j--) {
 				swap(a, j, j-1);
 			}
+		}
+	}
+	
+	private static void optimizedInsertionSort(int[] a) {
+		for (int i = 0; i < a.length; i++) {
+			int key = a[i];
+			int j = i - 1;
+			while (j >= 0 && a[j] > key) {
+				a[j+1] = a[j];
+				j--;
+			}
+			a[j+1] = key;
 		}
 	}
 	
