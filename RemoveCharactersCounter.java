@@ -40,15 +40,25 @@ public class RemoveCharactersCounter {
 //	We need to remove all of them.
 //	
 
-	private static final String a = "abacadaeafagahaiajakalamanaoapaqarasatauavawaxayazbcbdbebfbgbhbibjbkblbmbnbobpbqbrbsbtbubvbwbxbybzcdcecfcgchcicjckclcmcncocpcqcrcsctcucvcwcxcyczdedfdgdhdidjdkdldmdndodpdqdrdsdtdudvdwdxdydzefegeheiejekelemeneoepeqereseteuevewexeyezfgfhfifjfkflfmfnfofpfqfrfsftfufvfwfxfyfzghgigjgkglgmgngogpgqgrgsgtgugvgwgxgygzhihjhkhlhmhnhohphqhrhshthuhvhwhxhyhzijikiliminioipiqirisitiuiviwixiyizjkjljmjnjojpjqjrjsjtjujvjwjxjyjzklkmknkokpkqkrksktkukvkwkxkykzlmlnlolplqlrlsltlulvlwlxlylzmnmompmqmrmsmtmumvmwmxmymznonpnqnrnsntnunvnwnxnynzopoqorosotouovowoxoyozpqprpsptpupvpwpxpypzqrqsqtquqvqwqxqyqzrsrtrurvrwrxryrzstsusvswsxsysztutvtwtxtytzuvuwuxuyuzvwvxvyvzwxwywzxyxzyz";
-	private static final String b = "abcaadaeafagahaiajakalamanaopaaqarasatauavawaxayazbcbdebbfbgbhbibjbkblbmbnbobpbqbrbstbbubvbwbxbybzcdcefccgchiccjkcclmccncocpcqcrcstcuccvcwcxcyczdedfdgdhdidjdkdldmdnoddpdqdrdsdtduvddwdxdydzefegeheiejekelemneoeepeqereseteuveewxeeyezfghffifjfkflfmfnfofpfqfrfsftfuvffwfxfyfzghgigjgkglgmgngogpgqrggsgtguvggwgxgygzhihjkhhlhmhnohhpqhhrhshthuhvhwhxhyhzijikiliminioipiqriisitiuiviwixiyizjkljjmjnjopjjqjrjsjtjuvjjwjxjyjzlkkmknokpkkqkrksktkukvkwkxkykzlmlnollplqlrlstllulvwllxlylzmnommpmqmrmsmtmumvmwmxmymznonpnqrnnsntnunvnwnxnynzpooqorsootouovowxooyzopqprpsptpuvppwxppypzqrqstqquqvqwqxqyqzrstrurrvrwxrryrztssusvswsxsysztutvwttxtytzuvuwuxuyuzvwxvvyvzwxwywzxyxzyz";
+//	private static final String a = "abacadaeafagahaiajakalamanaoapaqarasatauavawaxayazbcbdbebfbgbhbibjbkblbmbnbobpbqbrbsbtbubvbwbxbybzcdcecfcgchcicjckclcmcncocpcqcrcsctcucvcwcxcyczdedfdgdhdidjdkdldmdndodpdqdrdsdtdudvdwdxdydzefegeheiejekelemeneoepeqereseteuevewexeyezfgfhfifjfkflfmfnfofpfqfrfsftfufvfwfxfyfzghgigjgkglgmgngogpgqgrgsgtgugvgwgxgygzhihjhkhlhmhnhohphqhrhshthuhvhwhxhyhzijikiliminioipiqirisitiuiviwixiyizjkjljmjnjojpjqjrjsjtjujvjwjxjyjzklkmknkokpkqkrksktkukvkwkxkykzlmlnlolplqlrlsltlulvlwlxlylzmnmompmqmrmsmtmumvmwmxmymznonpnqnrnsntnunvnwnxnynzopoqorosotouovowoxoyozpqprpsptpupvpwpxpypzqrqsqtquqvqwqxqyqzrsrtrurvrwrxryrzstsusvswsxsysztutvtwtxtytzuvuwuxuyuzvwvxvyvzwxwywzxyxzyz";
+//	private static final String b = "abcaadaeafagahaiajakalamanaopaaqarasatauavawaxayazbcbdebbfbgbhbibjbkblbmbnbobpbqbrbstbbubvbwbxbybzcdcefccgchiccjkcclmccncocpcqcrcstcuccvcwcxcyczdedfdgdhdidjdkdldmdnoddpdqdrdsdtduvddwdxdydzefegeheiejekelemneoeepeqereseteuveewxeeyezfghffifjfkflfmfnfofpfqfrfsftfuvffwfxfyfzghgigjgkglgmgngogpgqrggsgtguvggwgxgygzhihjkhhlhmhnohhpqhhrhshthuhvhwhxhyhzijikiliminioipiqriisitiuiviwixiyizjkljjmjnjopjjqjrjsjtjuvjjwjxjyjzlkkmknokpkkqkrksktkukvkwkxkykzlmlnollplqlrlstllulvwllxlylzmnommpmqmrmsmtmumvmwmxmymznonpnqrnnsntnunvnwnxnynzpooqorsootouovowxooyzopqprpsptpuvppwxppypzqrqstqquqvqwqxqyqzrstrurrvrwxrryrztssusvswsxsysztutvwttxtytzuvuwuxuyuzvwxvvyvzwxwywzxyxzyz";
+
+	private static final String a = "qwertyuiopasdfghjklzxcvbnm";
+	private static final String b = "lkjhgfdsamnbvcxzpoiuytrewq";
+
+//	private static final String a = "aaaabcd";
+//	private static final String b = "dcbaaa";
 	
 	// Should be 9.. :(
+
+
 
     public static void main(String[] args) {
 		System.out.println("String A: " + a);
 		System.out.println("String B: " + b);
 		System.out.println("result: " + removeCharactersCounter(a,b));
+//		System.out.println("result: " + minimalDistinct(a,b));
+
     }
 	
 	private static int removeCharactersCounter(String a, String b) {
@@ -57,7 +67,6 @@ public class RemoveCharactersCounter {
 		Set charsUsedB = returnCharsUsed(b);
 		Set<Character> chars = new LinkedHashSet<Character>(charsUsedA);
 		Set<Character> temp = new LinkedHashSet<Character>(charsUsedB);
-
 		
 		chars.removeAll(charsUsedB);
 		temp.removeAll(charsUsedA);
@@ -74,36 +83,51 @@ public class RemoveCharactersCounter {
 		chars.clear();
 		chars.addAll(charsUsedA);
 		chars.retainAll(charsUsedB);
-		
-		return removeCharactersCounter(a,b,chars,i, lettersTouched);
+
+		Set<String> workingSequence = new HashSet<String>();
+		workingSequence.add("");
+		Map<String, String[]> cache = new HashMap<String, String[]>();
+		String[] strings = new String[2];
+		strings[0] = a;
+		strings[1] = b;
+		cache.put("", strings);	
+
+		return removeCharactersCounter(a,b,chars,i,cache,workingSequence);
 	}
 	
-	private static int removeCharactersCounter(String a, String b, Set<Character> chars, int i, String lettersTouched) {
+	private static int removeCharactersCounter(String a, String b, Set<Character> chars, int i, Map<String, String[]> cache, Set<String> workingSequence) {
 		if(chars.size() == 0 || a.equals(b)) {
-			System.out.println(lettersTouched);
 			return i;
 		}
 		
-		Map<Character, String[]> cache = new HashMap<Character , String[]>();
+		Set<String> nextWorkingSequence = new HashSet<String>(); 
+
+				System.out.println("size of workingSequence: " + workingSequence.size());
 		
 		for (Character c : chars) {
-			String[] replacedStrings = new String[2];
-			replacedStrings[0] = a.replaceAll("" + c, "");
-			replacedStrings[1] = b.replaceAll("" + c, "");
-			if(replacedStrings[0].equals(replacedStrings[1])) {
-				lettersTouched += "" + c;
-				System.out.println(lettersTouched + c);
-				return i+1;
-			}
-			cache.put(c, replacedStrings);
+			for (String s : workingSequence) {
+				if(s.indexOf(c) >= 0) {
+					continue;
+				}
+				String currentSequence = s + c;
+				String[] currentStrings = cache.get(s);
+				String[] replacedStrings = new String[2];
+				replacedStrings[0] = currentStrings[0].replaceAll("" + c, "");
+				replacedStrings[1] = currentStrings[1].replaceAll("" + c, "");
+				if(replacedStrings[0].equals(replacedStrings[1])) {
+					System.out.println("Solving chars: " + currentSequence);
+					return i+1;
+				}
+				char[] currentSequenceCharArray = currentSequence.toCharArray();
+				Arrays.sort(currentSequenceCharArray);
+				currentSequence = new String(currentSequenceCharArray);
+				nextWorkingSequence.add(currentSequence);
+				cache.put(currentSequence, replacedStrings);
+
+			}			
 		}
 
-		for (Character c : chars) {
-			Set<Character> newChars = new LinkedHashSet<Character>(chars);
-			newChars.remove(c);
-			return removeCharactersCounter(cache.get(c)[0], cache.get(c)[1], newChars, i+1, lettersTouched + c);
-		}
-		return -1;
+		return removeCharactersCounter(a, b, chars, i+1, cache, nextWorkingSequence);
 	}
 	
 	private static Set<Character> returnCharsUsed(String s) {
@@ -115,5 +139,46 @@ public class RemoveCharactersCounter {
 		}
 		return chars;
 	}
+
+
+	private static int minimalDistinct(String A, String B) {
+		int[] f = new int[26];
+		for (char c = 'a'; c <= 'z'; c++) {
+		    for (char d = c; d <= 'z'; d++) {
+		        String a = "";
+		        String b = "";
+		        for (char e : A.toCharArray()) {
+		            if (e == c || e == d) {
+		                a += e;
+		            }
+		        }
+		        for (char e : B.toCharArray()) {
+		            if (e == c || e == d) {
+		                b += e;
+		            }
+		        }
+		        if (!a.equals(b)) {
+		            f[c - 'a'] |= 1 << (d - 'a');
+		            f[d - 'a'] |= 1 << (c - 'a');
+		        }
+		    }
+		}
+		for(int i = 0; i < 26; i++) {
+			System.out.println("letter " + i + " is " + f[i]);
+		}
+		int ans = 0;
+		all:
+		for (int i = 0; i < 1 << 26; i++) {
+		    if (Integer.bitCount(i) <= ans) continue;
+		    for (int j = 0; j < 26; j++) {
+		        if (((i >> j) & 1) == 0) continue;
+		        if ((f[j] & i) != 0) {
+		            continue all;
+		        }
+		    }
+		    ans = Integer.bitCount(i);
+		}
+		return 26 - ans;
+    }
 	
 }
