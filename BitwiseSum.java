@@ -5,6 +5,7 @@ public class BitwiseSum {
 
     public static void main(String[] args) {
 		System.out.println("Sum result of " + a + " and " + b + " is " + bitwiseSum(a,b));
+		System.out.println("Sub result of " + a + " and " + b + " is " + bitwiseSub(a,b));
     }
 	
 	private static int bitwiseSum(int a, int b) {
@@ -13,7 +14,11 @@ public class BitwiseSum {
 			a ^= b;
 			b = tmp;
 		}
-		return (a | b);
+		return (a ^ b);
+	}
+	
+	private static int bitwiseSub(int a, int b) {
+		return bitwiseSum(a, bitwiseSum(~b, 1));
 	}
 
 }
