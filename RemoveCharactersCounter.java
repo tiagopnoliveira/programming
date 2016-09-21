@@ -43,11 +43,11 @@ public class RemoveCharactersCounter {
 //	private static final String a = "abacadaeafagahaiajakalamanaoapaqarasatauavawaxayazbcbdbebfbgbhbibjbkblbmbnbobpbqbrbsbtbubvbwbxbybzcdcecfcgchcicjckclcmcncocpcqcrcsctcucvcwcxcyczdedfdgdhdidjdkdldmdndodpdqdrdsdtdudvdwdxdydzefegeheiejekelemeneoepeqereseteuevewexeyezfgfhfifjfkflfmfnfofpfqfrfsftfufvfwfxfyfzghgigjgkglgmgngogpgqgrgsgtgugvgwgxgygzhihjhkhlhmhnhohphqhrhshthuhvhwhxhyhzijikiliminioipiqirisitiuiviwixiyizjkjljmjnjojpjqjrjsjtjujvjwjxjyjzklkmknkokpkqkrksktkukvkwkxkykzlmlnlolplqlrlsltlulvlwlxlylzmnmompmqmrmsmtmumvmwmxmymznonpnqnrnsntnunvnwnxnynzopoqorosotouovowoxoyozpqprpsptpupvpwpxpypzqrqsqtquqvqwqxqyqzrsrtrurvrwrxryrzstsusvswsxsysztutvtwtxtytzuvuwuxuyuzvwvxvyvzwxwywzxyxzyz";
 //	private static final String b = "abcaadaeafagahaiajakalamanaopaaqarasatauavawaxayazbcbdebbfbgbhbibjbkblbmbnbobpbqbrbstbbubvbwbxbybzcdcefccgchiccjkcclmccncocpcqcrcstcuccvcwcxcyczdedfdgdhdidjdkdldmdnoddpdqdrdsdtduvddwdxdydzefegeheiejekelemneoeepeqereseteuveewxeeyezfghffifjfkflfmfnfofpfqfrfsftfuvffwfxfyfzghgigjgkglgmgngogpgqrggsgtguvggwgxgygzhihjkhhlhmhnohhpqhhrhshthuhvhwhxhyhzijikiliminioipiqriisitiuiviwixiyizjkljjmjnjopjjqjrjsjtjuvjjwjxjyjzlkkmknokpkkqkrksktkukvkwkxkykzlmlnollplqlrlstllulvwllxlylzmnommpmqmrmsmtmumvmwmxmymznonpnqrnnsntnunvnwnxnynzpooqorsootouovowxooyzopqprpsptpuvppwxppypzqrqstqquqvqwqxqyqzrstrurrvrwxrryrztssusvswsxsysztutvwttxtytzuvuwuxuyuzvwxvvyvzwxwywzxyxzyz";
 
-	private static final String a = "qwertyuiopasdfghjklzxcvbnm";
-	private static final String b = "lkjhgfdsamnbvcxzpoiuytrewq";
+//	private static final String a = "qwertyuiopasdfghjklzxcvbnm";
+//	private static final String b = "lkjhgfdsamnbvcxzpoiuytrewq";
 
-//	private static final String a = "aaaabcd";
-//	private static final String b = "dcbaaa";
+	private static final String a = "abcdef";
+	private static final String b = "abcfed";
 	
 	// Should be 9.. :(
 
@@ -56,8 +56,8 @@ public class RemoveCharactersCounter {
     public static void main(String[] args) {
 		System.out.println("String A: " + a);
 		System.out.println("String B: " + b);
-		System.out.println("result: " + removeCharactersCounter(a,b));
-//		System.out.println("result: " + minimalDistinct(a,b));
+//		System.out.println("result: " + removeCharactersCounter(a,b));
+		System.out.println("result: " + minimalDistinct(a,b));
 
     }
 	
@@ -164,7 +164,7 @@ public class RemoveCharactersCounter {
 		    }
 		}
 		for(int i = 0; i < 26; i++) {
-			System.out.println("letter " + i + " is " + f[i]);
+			System.out.println("letter " + i + " is \t" + Integer.toBinaryString(f[i]));
 		}
 		int ans = 0;
 		all:
