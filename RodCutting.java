@@ -5,9 +5,10 @@ public class RodCutting {
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		System.out.println(rodCutting(values, 27));
-		double duration = (System.currentTimeMillis() - startTime) / 1000;
+		double duration = System.currentTimeMillis() - startTime;
+		System.out.println();
 		System.out.print("Processing time: ");
-		System.out.format("%.3f%n", duration);
+		System.out.format("%.3f", duration / 1000);
 		System.out.println(" seconds.");
 
     }

@@ -11,10 +11,10 @@ public class MaxSubarray {
 		int sum = calculateArraySum(maxSubarray);
 		System.out.println("Max array found: " + Arrays.toString(maxSubarray));
 		System.out.println("Total sum: " + sum);
-		double duration = (System.currentTimeMillis() - startTime) / 1000;
+		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
 		System.out.print("Processing time: ");
-		System.out.format("%.3f", duration);
+		System.out.format("%.3f", duration / 1000);
 		System.out.println(" seconds.");
     }
     
