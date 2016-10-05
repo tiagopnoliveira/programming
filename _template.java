@@ -6,8 +6,9 @@ public class _template {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 		double duration = (System.currentTimeMillis() - startTime) / 1000;
+		System.out.println();
 		System.out.print("Processing time: ");
-		System.out.format("%.3f%n", duration);
+		System.out.format("%.3f", duration);
 		System.out.println(" seconds.");
 
     }
