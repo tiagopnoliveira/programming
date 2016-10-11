@@ -21,7 +21,7 @@ public class OneHundrer {
 	
 
     public static void main(String[] args) {
-		OneHundrer("" + numbers[0], 1, 0, numbers[0]);
+		OneHundrer(String.valueOf(numbers[0]), 1, 0, numbers[0]);
 		for(String s : results) {
 			System.out.println(s);
 		}

@@ -74,8 +74,8 @@ public class RemoveCharactersCounter {
 		
 		int i = 0;
 		for (Character c : chars) {
-			a = a.replaceAll("" + c, "");
-			b = b.replaceAll("" + c, "");
+			a = a.replaceAll(String.valueOf(c), "");
+			b = b.replaceAll(String.valueOf(c), "");
 			i++;
 			lettersTouched += c;
 		}
@@ -112,8 +112,8 @@ public class RemoveCharactersCounter {
 				String currentSequence = s + c;
 				String[] currentStrings = cache.get(s);
 				String[] replacedStrings = new String[2];
-				replacedStrings[0] = currentStrings[0].replaceAll("" + c, "");
-				replacedStrings[1] = currentStrings[1].replaceAll("" + c, "");
+				replacedStrings[0] = currentStrings[0].replaceAll(String.valueOf(c), "");
+				replacedStrings[1] = currentStrings[1].replaceAll(String.valueOf(c), "");
 				if(replacedStrings[0].equals(replacedStrings[1])) {
 					System.out.println("Solving chars: " + currentSequence);
 					return i+1;
@@ -135,7 +135,7 @@ public class RemoveCharactersCounter {
 		while(s.length() > 0) {
 			char c = s.charAt(0);
 			chars.add(c);
-			s = s.replaceAll("" + c, "");
+			s = s.replaceAll(String.valueOf(c), "");
 		}
 		return chars;
 	}
