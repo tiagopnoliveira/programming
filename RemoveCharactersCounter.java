@@ -1,7 +1,10 @@
 import java.util.*;
+import java.lang.Math;
 
 public class RemoveCharactersCounter {
 
+//  https://www.topcoder.com/tc?module=ProblemDetail&rd=16798&pm=14356
+//
 //	Constraints
 //	-	A will contain between 1 and 1,000 elements, inclusive.
 //	-	B will contain between 1 and 1,000 elements, inclusive.
@@ -40,31 +43,172 @@ public class RemoveCharactersCounter {
 //	We need to remove all of them.
 //	
 
-//	private static final String a = "abacadaeafagahaiajakalamanaoapaqarasatauavawaxayazbcbdbebfbgbhbibjbkblbmbnbobpbqbrbsbtbubvbwbxbybzcdcecfcgchcicjckclcmcncocpcqcrcsctcucvcwcxcyczdedfdgdhdidjdkdldmdndodpdqdrdsdtdudvdwdxdydzefegeheiejekelemeneoepeqereseteuevewexeyezfgfhfifjfkflfmfnfofpfqfrfsftfufvfwfxfyfzghgigjgkglgmgngogpgqgrgsgtgugvgwgxgygzhihjhkhlhmhnhohphqhrhshthuhvhwhxhyhzijikiliminioipiqirisitiuiviwixiyizjkjljmjnjojpjqjrjsjtjujvjwjxjyjzklkmknkokpkqkrksktkukvkwkxkykzlmlnlolplqlrlsltlulvlwlxlylzmnmompmqmrmsmtmumvmwmxmymznonpnqnrnsntnunvnwnxnynzopoqorosotouovowoxoyozpqprpsptpupvpwpxpypzqrqsqtquqvqwqxqyqzrsrtrurvrwrxryrzstsusvswsxsysztutvtwtxtytzuvuwuxuyuzvwvxvyvzwxwywzxyxzyz";
-//	private static final String b = "abcaadaeafagahaiajakalamanaopaaqarasatauavawaxayazbcbdebbfbgbhbibjbkblbmbnbobpbqbrbstbbubvbwbxbybzcdcefccgchiccjkcclmccncocpcqcrcstcuccvcwcxcyczdedfdgdhdidjdkdldmdnoddpdqdrdsdtduvddwdxdydzefegeheiejekelemneoeepeqereseteuveewxeeyezfghffifjfkflfmfnfofpfqfrfsftfuvffwfxfyfzghgigjgkglgmgngogpgqrggsgtguvggwgxgygzhihjkhhlhmhnohhpqhhrhshthuhvhwhxhyhzijikiliminioipiqriisitiuiviwixiyizjkljjmjnjopjjqjrjsjtjuvjjwjxjyjzlkkmknokpkkqkrksktkukvkwkxkykzlmlnollplqlrlstllulvwllxlylzmnommpmqmrmsmtmumvmwmxmymznonpnqrnnsntnunvnwnxnynzpooqorsootouovowxooyzopqprpsptpuvppwxppypzqrqstqquqvqwqxqyqzrstrurrvrwxrryrztssusvswsxsysztutvwttxtytzuvuwuxuyuzvwxvvyvzwxwywzxyxzyz";
+	private static final String a = "abacadaeafagahaiajakalamanaoapaqarasatauavawaxayazbcbdbebfbgbhbibjbkblbmbnbobpbqbrbsbtbubvbwbxbybzcdcecfcgchcicjckclcmcncocpcqcrcsctcucvcwcxcyczdedfdgdhdidjdkdldmdndodpdqdrdsdtdudvdwdxdydzefegeheiejekelemeneoepeqereseteuevewexeyezfgfhfifjfkflfmfnfofpfqfrfsftfufvfwfxfyfzghgigjgkglgmgngogpgqgrgsgtgugvgwgxgygzhihjhkhlhmhnhohphqhrhshthuhvhwhxhyhzijikiliminioipiqirisitiuiviwixiyizjkjljmjnjojpjqjrjsjtjujvjwjxjyjzklkmknkokpkqkrksktkukvkwkxkykzlmlnlolplqlrlsltlulvlwlxlylzmnmompmqmrmsmtmumvmwmxmymznonpnqnrnsntnunvnwnxnynzopoqorosotouovowoxoyozpqprpsptpupvpwpxpypzqrqsqtquqvqwqxqyqzrsrtrurvrwrxryrzstsusvswsxsysztutvtwtxtytzuvuwuxuyuzvwvxvyvzwxwywzxyxzyz";
+	private static final String b = "abcaadaeafagahaiajakalamanaopaaqarasatauavawaxayazbcbdebbfbgbhbibjbkblbmbnbobpbqbrbstbbubvbwbxbybzcdcefccgchiccjkcclmccncocpcqcrcstcuccvcwcxcyczdedfdgdhdidjdkdldmdnoddpdqdrdsdtduvddwdxdydzefegeheiejekelemneoeepeqereseteuveewxeeyezfghffifjfkflfmfnfofpfqfrfsftfuvffwfxfyfzghgigjgkglgmgngogpgqrggsgtguvggwgxgygzhihjkhhlhmhnohhpqhhrhshthuhvhwhxhyhzijikiliminioipiqriisitiuiviwixiyizjkljjmjnjopjjqjrjsjtjuvjjwjxjyjzlkkmknokpkkqkrksktkukvkwkxkykzlmlnollplqlrlstllulvwllxlylzmnommpmqmrmsmtmumvmwmxmymznonpnqrnnsntnunvnwnxnynzpooqorsootouovowxooyzopqprpsptpuvppwxppypzqrqstqquqvqwqxqyqzrstrurrvrwxrryrztssusvswsxsysztutvwttxtytzuvuwuxuyuzvwxvvyvzwxwywzxyxzyz";
 
 //	private static final String a = "qwertyuiopasdfghjklzxcvbnm";
-//	private static final String b = "lkjhgfdsamnbvcxzpoiuytrewq";
+//	private static final String b = "mnbvcxzlkjhgfdsapoiuytrewq";
 
-	private static final String a = "abcdef";
-	private static final String b = "abcfed";
+//	private static final String a = "xxxxxxxvvgabczfedvoocczzxxxxxxx";
+//	private static final String b = "xxxxxxxvvaobccczozfedvgzxxxxxxx";
+
+//	private static final String a = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqsssssssssssssssssssssssssssssssssssszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzoooooooooooooooooooooooooooooooooooojjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaattttttttttttttttttttttttttttttttttttddddddddddddddddddddddddddddddddddddiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrffffffffffffffffffffffffffffffffffffuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkppppppppppppppppppppppppppppppppppppyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyccccccccccccccccccccccccccccccccccccxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggggggggggggggglllllllllllllllllllllllllllllllllllleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+//	private static final String b = "lllllllllllllllllllllllllllllllllllloooooooooooooooooooooooooooooooooooojjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnniiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiizzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzffffffffffffffffffffffffffffffffffffkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhggggggggggggggggggggggggggggggggggggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeccccccccccccccccccccccccccccccccccccttttttttttttttttttttttttttttttttttttuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyymmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsssssssssssssssssssssssssssssssssssspppppppppppppppppppppppppppppppppppp";
+
+//	private static final String a = "hvqszojwatdirfubkpycxmngle";
+//	private static final String b = "lojdbvrnizfkhgaectuqymxwsp";
+
+
+//	private static final String a = "wwqqwqqeettt";
+//	private static final String b = "tewwqwqttqee";
+
+
+//	private static final String a = "aaa";
+//	private static final String b = "aaa";
 	
-	// Should be 9.. :(
-
-
+	
+	
+	private static class RemoveCharactersCounterAux {
+		public String a;
+		public String b;
+		public int n;
+		private StringBuilder touchedChars;
+		
+		public RemoveCharactersCounterAux(String a, String b) {
+			this.a = a;
+			this.b = b;
+			n = 0;
+			touchedChars = new StringBuilder();
+			if(a.equals(b)) {
+				return;
+			}
+			performOptimization();
+			processCollisionMatrix(generateCollisionMatrix());
+			n = touchedChars.toString().length();
+			printCurrentResult();
+		}
+		
+		public String getTouchedChars() {
+			return touchedChars.toString();
+		}
+		
+		private void performOptimization() {
+			for(char c = 'a'; c <= 'z'; c++) {
+				int originalLenSA = a.length();
+				int originalLenSB = b.length();
+				String tmpA = a.replaceAll(String.valueOf(c), "");
+				String tmpB = b.replaceAll(String.valueOf(c), "");
+				if((originalLenSA - tmpA.length()) != (originalLenSB - tmpB.length())) {
+					a = tmpA;
+					b = tmpB;
+					touchedChars.append(String.valueOf(c));
+					n++;
+				}
+			}
+		}
+		
+		private boolean[][] generateCollisionMatrix() {
+			boolean[][] m = new boolean[26][26];
+			for(char c = 'a'; c <= 'z'; c++) {
+				for(char d = c; d <= 'z'; d++) {
+					StringBuilder tmpA = new StringBuilder();
+					StringBuilder tmpB = new StringBuilder();
+					for(char ca : a.toCharArray()) {
+						if(ca == c || ca == d) {
+							tmpA.append(ca);
+						}
+					}
+					for(char cb : b.toCharArray()) {
+						if(cb == c || cb == d) {
+							tmpB.append(cb);
+						}
+					}
+					if(!tmpA.toString().equals(tmpB.toString())) {
+						m[c-'a'][d-'a'] = true;
+						m[d-'a'][c-'a'] = true;
+					}
+				}
+			} 
+			return m;
+		}
+		
+		private void processCollisionMatrix(boolean[][] m) {
+			int[] collisions = countCollisionsMatrix(m);
+			//System.out.println(Arrays.toString(collisions));
+			for(int i = 0; i < m.length; i++) {
+				if(collisions[i] <= 0) continue;
+				int indexMaxFound = i;
+				for(int j = 0; j < m[i].length; j++) {
+					if(m[i][j] && collisions[j] > collisions[indexMaxFound]) {
+						indexMaxFound = j;						
+					}
+				}
+				for(int j = 0; j < m[i].length; j++) {
+					if(m[indexMaxFound][j]) {
+						collisions[j]--;
+					}
+				}
+				collisions[indexMaxFound] = 0;
+				char c = (char) (indexMaxFound + 'a');
+				touchedChars.append(String.valueOf(c));
+			}
+			return;
+		}
+		
+		private int[] countCollisionsMatrix(boolean[][] m) {
+			int collisions[] = new int[26];
+			for(int row = 0; row < m.length; row++) {
+				for(int col = 0; col < m[row].length; col++) {
+					if(m[row][col]) {
+						collisions[row]++;
+					}
+				}
+			}
+			return collisions;
+		}
+		
+		private void printCurrentResult() {
+			String tmpA = a;
+			String tmpB = b;
+			for(char c : touchedChars.toString().toCharArray()) {
+				tmpA = tmpA.replace(String.valueOf(c), "");
+				tmpB = tmpB.replace(String.valueOf(c), "");
+			}
+			System.out.println("Current String A: " + tmpA);
+			System.out.println("Current String B: " + tmpB);
+		}
+	}
 
     public static void main(String[] args) {
 		System.out.println("String A: " + a);
 		System.out.println("String B: " + b);
-//		System.out.println("result: " + removeCharactersCounter(a,b));
-		System.out.println("result: " + minimalDistinct(a,b));
-
+//		System.out.println("result: " + removeCharactersCounterPoor(a,b));
+		long startTime = System.currentTimeMillis();
+		System.out.println("TopCoder result: " + minimalDistinct(a,b));
+		double duration = System.currentTimeMillis() - startTime;
+		System.out.println();
+		System.out.print("Processing time for TopCoder solution: ");
+		System.out.format("%.3f", duration / 1000);
+		System.out.println(" seconds.");
+		System.out.println();
+		System.out.println();
+		startTime = System.currentTimeMillis();
+		RemoveCharactersCounterAux rcc = new RemoveCharactersCounterAux(a,b);
+		duration = System.currentTimeMillis() - startTime;
+		System.out.println("Using my method: " + rcc.n);
+		System.out.println("Chars touched: " + rcc.getTouchedChars());
+		System.out.println();
+		System.out.print("Processing time for my new solution: ");
+		System.out.format("%.3f", duration / 1000);
+		System.out.println(" seconds.");
     }
-	
-	private static int removeCharactersCounter(String a, String b) {
+    
+	// My first poor & extremely naive attempt to solve this issue.
+	/*
+	private static int removeCharactersCounterPoor(String a, String b) {
 		String lettersTouched = "";
-		Set charsUsedA = returnCharsUsed(a);
-		Set charsUsedB = returnCharsUsed(b);
+		Set charsUsedA = returnCharsUsedPoor(a);
+		Set charsUsedB = returnCharsUsedPoor(b);
 		Set<Character> chars = new LinkedHashSet<Character>(charsUsedA);
 		Set<Character> temp = new LinkedHashSet<Character>(charsUsedB);
 		
@@ -92,10 +236,10 @@ public class RemoveCharactersCounter {
 		strings[1] = b;
 		cache.put("", strings);	
 
-		return removeCharactersCounter(a,b,chars,i,cache,workingSequence);
+		return removeCharactersCounterPoor(a,b,chars,i,cache,workingSequence);
 	}
 	
-	private static int removeCharactersCounter(String a, String b, Set<Character> chars, int i, Map<String, String[]> cache, Set<String> workingSequence) {
+	private static int removeCharactersCounterPoor(String a, String b, Set<Character> chars, int i, Map<String, String[]> cache, Set<String> workingSequence) {
 		if(chars.size() == 0 || a.equals(b)) {
 			return i;
 		}
@@ -127,10 +271,10 @@ public class RemoveCharactersCounter {
 			}			
 		}
 
-		return removeCharactersCounter(a, b, chars, i+1, cache, nextWorkingSequence);
+		return removeCharactersCounterPoor(a, b, chars, i+1, cache, nextWorkingSequence);
 	}
 	
-	private static Set<Character> returnCharsUsed(String s) {
+	private static Set<Character> returnCharsUsedPoor(String s) {
 		Set<Character> chars = new HashSet<Character>();
 		while(s.length() > 0) {
 			char c = s.charAt(0);
@@ -138,9 +282,9 @@ public class RemoveCharactersCounter {
 			s = s.replaceAll(String.valueOf(c), "");
 		}
 		return chars;
-	}
+	}*/
 
-
+	// Alien powered solution shown on TopCoder
 	private static int minimalDistinct(String A, String B) {
 		int[] f = new int[26];
 		for (char c = 'a'; c <= 'z'; c++) {
@@ -158,17 +302,19 @@ public class RemoveCharactersCounter {
 		            }
 		        }
 		        if (!a.equals(b)) {
+				//	System.out.println("SubA: " + a + " , SubB: " + b + " , Char c: " + c + " , Char d: " + d);
 		            f[c - 'a'] |= 1 << (d - 'a');
 		            f[d - 'a'] |= 1 << (c - 'a');
 		        }
 		    }
 		}
-		for(int i = 0; i < 26; i++) {
-			System.out.println("letter " + i + " is \t" + Integer.toBinaryString(f[i]));
-		}
+		//for(int i = 0; i < 26; i++) {
+		//	System.out.println("letter " + i + " is \t" + Integer.toBinaryString(f[i]));
+		//}
 		int ans = 0;
 		all:
 		for (int i = 0; i < 1 << 26; i++) {
+			//if(i % 10000 == 0) System.out.println(Integer.bitCount(i));
 		    if (Integer.bitCount(i) <= ans) continue;
 		    for (int j = 0; j < 26; j++) {
 		        if (((i >> j) & 1) == 0) continue;
