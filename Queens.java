@@ -1,31 +1,11 @@
 import java.lang.Math;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Queens {
 	
-	private static class ChessBoard {
-		int board;
-		List<Queen> queens;
-		
-		public ChessBoard(int n, List<Queen> queens) {
-			this.board = n;
-			this.queens = queens;
-		}
-		
-		public boolean isConflicting() {
-			for(int i = 0; i < queens.size(); i++) {
-				for(int j = i+1; j < queens.size(); j++) {
-					if(queens.get(i).isConflicting(queens.get(j))) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-	}
-	
-	private static class Queen {
+	private static class Queen implements Comparable<Queen> {
 		int r;
 		int c;
 		
@@ -34,24 +14,191 @@ public class Queens {
 			this.c = c;
 		}
 		
-		public boolean isConflicting(Queen q) {
-			return q.r == r || q.c == c || Math.abs(q.r-r) == Math.abs(q.c-c);
+		@Override
+		public int compareTo(Queen other){
+			// compareTo should return < 0 if this is supposed to be
+			// less than other, > 0 if this is supposed to be greater than 
+			// other and 0 if they are supposed to be equal
+			if(r < other.r) {
+				return -1;
+			}
+			if(r > other.r || c > other.c) {
+				return 1;
+			}
+			if(c < other.c) {
+				return -1;
+			}
+			return 0;
 		}
 		
+		@Override
+		public int hashCode(){
+			return (r << 16) ^ c;
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			return (o instanceof Queen) && ((Queen)o).r == r && ((Queen)o).c == c;
+		}
+		
+	}
+	
+	private static class AlreadyTestedException extends Exception {}
+	private static class RowUsedException extends Exception {}
+	private static class ColUsedException extends Exception {}
+	private static class DiagUsedException extends Exception {}
+	
+	private static class BoardState {
+		int size;
+		int rows;
+		boolean[][] collisions;
+		int cols;
+		Set<Queen> queens;
+		
+		public BoardState(int rows, int cols, int size, boolean[][] collisions, Set<Queen> queens) {
+			this.rows = rows;
+			this.cols = cols;
+			this.size = size;
+			this.collisions = collisions;
+			this.queens = queens;
+		}
+
+
+		public BoardState(int rows, int cols, int size) {
+			this(rows,cols,size,new boolean[size][size], new TreeSet<Queen>());
+		}
+		
+		public BoardState(int size) {
+			this(0,0,size);
+		}
+		
+		public BoardState() {
+			this(8);
+		}
+		
+		public BoardState(BoardState s) {
+			this(s.rows, s.cols, s.size, new boolean[s.size][s.size], new TreeSet<Queen>());
+			this.copyCollisions(s.collisions);
+			this.queens.addAll(s.queens);
+		}
+		
+		public void copyCollisions(boolean[][] collisions) {
+			for(int r = 0; r < size; r++) {
+				for(int c = 0; c < size; c++) {
+					this.collisions[r][c] = collisions[r][c];
+				}
+			}
+		}
+		
+		public void tryQueen(int row, int col) throws AlreadyTestedException, RowUsedException, ColUsedException, DiagUsedException {
+			if(row >= size || col >= size) {
+				return;
+			}
+			if(collisions[row][col]) {
+				throw new AlreadyTestedException();
+			}
+			int r, c;
+			r = setBit(rows, row);
+			c = setBit(cols, col);
+			if(r == rows) {
+				collisions[row][col] = true;
+				throw new RowUsedException();
+			}
+			if(c == cols) {
+				collisions[row][col] = true;
+				throw new ColUsedException();
+			}
+			if(testConflictDiagonals(row, col)) {
+				collisions[row][col] = true;
+				throw new DiagUsedException();
+			}
+		}
+		
+		public void putQueen(int row, int col) {
+			rows = setBit(rows, row);
+			cols = setBit(cols, col);
+			collisions[row][col] = true;
+			queens.add(new Queen(row,col));
+		}
+		
+		private boolean testConflictDiagonals(int row, int col) {
+			for(Queen q : queens) {
+				if(Math.abs(q.r-row) == Math.abs(q.c-col)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
+		private int setBit(int array, int pos) {
+			int mask = 1 << pos;
+			return array | mask;
+		}
+		
+		public void print() {
+			boolean[][] queensMatrix = new boolean[size][size];
+			for(Queen q : queens) {
+				queensMatrix[q.r][q.c] = true;
+			}
+			
+			System.out.print("    ");
+			for(int i = 0; i < size; i++) {
+				System.out.print(" " + i%10 + " ");
+			}
+			System.out.println();
+			System.out.print("    ");
+			for(int i = 0; i < size; i++) {
+				System.out.print("---");
+			}
+			System.out.println();
+			for(int r = 0; r < size; r++) {
+				System.out.format("%02d |", r);
+				for(int c = 0; c < size; c++) {
+					if(queensMatrix[r][c]) {
+						System.out.print(" Q ");
+					} else {
+						System.out.print(" . ");
+					}
+				}
+				System.out.println("|");
+			}
+			System.out.print("    ");
+			for(int i = 0; i < size; i++) {
+				System.out.print("---");
+			}
+			System.out.println();
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			BoardState bs = null;
+			if(o instanceof BoardState) {
+				bs = (BoardState) o;
+			} else {
+				return false;
+			}
+			if(!(bs.rows == rows && bs.cols == cols)) {
+				return false;
+			}
+			return this.queens.equals(bs.queens);
+		}
+		
+		@Override
+		public int hashCode() {
+			return rows ^ cols;
+		}
+
 	}
 	
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
-		ChessBoard startingBoard = new ChessBoard(12, new ArrayList<Queen>());
-		List<List<Queen>> res = positionQueens(startingBoard, 12);
-		for(List<Queen> combo : res) {
-			System.out.print("Combination: ");
-			for(Queen q : combo) {
-				System.out.print("(" + q.r + "," + q.c + "), ");
-			}
-			System.out.println();
-		}
+		Set<BoardState> states = positionQueens(7,7);
+		//~ for(BoardState s : states) {
+			//~ s.print();
+		//~ }
+		System.out.println("Total amount of states: " + states.size());
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
 		System.out.print("Processing time: ");
@@ -60,74 +207,39 @@ public class Queens {
 
     }
     
-    public static List<List<Queen>> positionQueens(ChessBoard cb, int n_queens) {
-		List<List<Queen>> res = new ArrayList<List<Queen>>();
-		for(int r = 0; r < cb.board; r++) {
-			for(int c = 0; c < cb.board; c++) {
-				// boards are symetrical, so let's just try half of it (plus the central positions if board is uneven)
-				if(r+c >= cb.board) {
-					break;
-				}
-				Queen startingQueen = new Queen(r,c);
-				List<Queen> resCandidate = new ArrayList<Queen>();
-				resCandidate.add(startingQueen);
-				res.add(resCandidate);
-			}
-		}
-		n_queens--;
-		while(n_queens-- > 0) {
-			List<List<Queen>> nextResCandidate = new ArrayList<List<Queen>>();
-			for(List<Queen> resCandidate : res) {
-				List<Queen> possibleNextQueens = positionNextQueen(resCandidate.get(resCandidate.size()-1), cb.board);
-				for(Queen q : possibleNextQueens) {
-					List<Queen> nextUntestedCandidate = new ArrayList<Queen>();
-					nextUntestedCandidate.addAll(resCandidate);
-					nextUntestedCandidate.add(q);
-					cb.queens = nextUntestedCandidate;
-					if(!cb.isConflicting()) {
-						nextResCandidate.add(nextUntestedCandidate);
-					}
-				}
-			}
-			System.out.println("res: " + nextResCandidate.size());
-			res = nextResCandidate;
-		}
-		return res;
+    public static Set<BoardState> positionQueens(int queens, int size) {
+		Set<BoardState> initStates = new HashSet<BoardState>();
+		initStates.add(new BoardState(size));
+		return positionQueens(queens, initStates);
 	}
-	
-	private static List<Queen> positionNextQueen(Queen q, int board) {
-			int r = q.r;
-			int c = q.c;
-			List<Queen> res = new ArrayList<Queen>();
-			if(r+2 < board && c+1 < board) {
-				res.add(new Queen(r+2, c+1));
-			}
-			if(r+1 < board && c+2 < board) {
-				res.add(new Queen(r+1, c+2));
-			}
-
-			if(r+2 < board && c-1 >= 0) {
-				res.add(new Queen(r+2, c-1));
-			}
-			if(r+1 < board && c-2 >= 0) {
-				res.add(new Queen(r+1, c-2));
-			}
-
-			if(r-2 >= 0 && c+1 < board) {
-				res.add(new Queen(r-2, c+1));
-			}
-			if(r-1 >= 0 && c+2 < board) {
-				res.add(new Queen(r-1, c+2));
-			}
-			
-			if(r-2 >= 0 && c-1 >= 0) {
-				res.add(new Queen(r-2, c-1));
-			}
-			if(r-1 >= 0 && c-2 >= 0) {
-				res.add(new Queen(r-1, c-2));
-			}
-			return res;
+    
+    public static Set<BoardState> positionQueens(int n_queens, Set<BoardState> states) {
+		if(n_queens == 0) {
+			return states;
 		}
-
-
+		Set<BoardState> nextStates = new HashSet<BoardState>();
+		for(BoardState s : states) {
+			Set<Queen> queens = s.queens;
+			rowCycle:
+			for(int r = 0; r < s.size; r++) {
+				for(int c = 0; c < s.size; c++) {
+					try {
+						s.tryQueen(r,c);
+					} catch (AlreadyTestedException ate) {
+						continue;
+					} catch (RowUsedException rue) {
+						break;
+					} catch (ColUsedException cue) {
+						continue;
+					} catch (DiagUsedException due) {
+						continue;
+					}
+					BoardState ns = new BoardState(s);
+					ns.putQueen(r,c);
+					nextStates.add(ns);
+				}
+			}
+		}
+		return positionQueens(n_queens-1, nextStates);
+	}
 }
