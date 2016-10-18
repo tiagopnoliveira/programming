@@ -110,7 +110,7 @@ public class BSTImpl {
 			return getValue(n);
 		}
 		
-		public int getValue(int n) {
+		public Integer getValue(int n) {
 			return a.get(n);
 		}
 		
