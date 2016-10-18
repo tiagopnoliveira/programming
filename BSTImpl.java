@@ -4,38 +4,26 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 
 public class BSTImpl {
+	private static final int[] b = {8, 3, 10, 1, 6, 14, 4, 7, 13, 2};
+
+
 	private static class BST {
 		ArrayList<Integer> a;
 		
 		public BST() {
 			this.a = new ArrayList<Integer>();
-			
-			a.add(null);
-			a.add(8);
-			a.add(3);
-			a.add(10);
-			a.add(1);
-			a.add(6);
-			a.add(null);
-			a.add(14);
-			a.add(null);
-			a.add(2);
-			a.add(4);
-			a.add(7);
-			a.add(13);
-			
-			//new int[] {getNull(), 8, 3, 10, 1, 6, getNull(), 14, getNull(), getNull(), 4, 7, 13};
 		}
 		
 		public BST(int[] a) {
-			this.a = new ArrayList<Integer>();
+			this();
 			for(int i = 0; i < a.length; i++) {
-				this.a.add(a[i]);
+				this.insert(a[i]);
 			}
+			printState();
 		}
 		
 		public BST(BST bst) {
-			this.a = new ArrayList<Integer>();
+			this();
 			for(Integer i : bst.a) {
 				this.a.add(i);
 			}
@@ -49,6 +37,26 @@ public class BSTImpl {
 			return -1;
 		}
 		
+		public void printState() {
+			System.out.println(Arrays.toString(a.toArray()));
+		}
+		
+		public void insert(int v) {
+			int n = getRoot();
+			while(!isEmpty(n)) {
+				int cnv = getValue(n);
+				if(v <= cnv) {
+					n = getLeftNode(n);
+				} else {
+					n = getRightNode(n);
+				}
+			}
+			for(int i = this.a.size(); i <= n; i++) {
+				a.add(null);
+			}
+			a.set(n,v);
+		}
+		
 		public int getMinValue() {
 			if(a.size() < 1) {
 				return getNull();
@@ -60,7 +68,7 @@ public class BSTImpl {
 			int n = startingNode;
 			while(true) {
 				int ln = getLeftNode(n);
-				if(isOutOfBounds(ln) || isEmpty(ln)) {
+				if(isEmpty(ln)) {
 					return n;
 				}
 				n = ln;
@@ -74,7 +82,7 @@ public class BSTImpl {
 			int n = getRoot();
 			while(true) {
 				int rn = getRightNode(n);
-				if(isOutOfBounds(rn) || isEmpty(rn)) {
+				if(isEmpty(rn)) {
 					return a.get(n);
 				}
 				n = rn;
@@ -91,7 +99,7 @@ public class BSTImpl {
 				k--;
 				visitedNodes.add(n);
 				int rn = getRightNode(n);
-				if(!isOutOfBounds(rn) && !isEmpty(rn)) {
+				if(!isEmpty(rn)) {
 					n = getNodeMinValue(rn);
 					continue;
 				}
@@ -99,7 +107,6 @@ public class BSTImpl {
 					n = getParent(n);
 				}
 			}
-			//System.out.println(":( " + n);
 			return getValue(n);
 		}
 		
@@ -108,17 +115,17 @@ public class BSTImpl {
 		}
 		
 		public void deleteNode(int n) {
-			if(isOutOfBounds(n) || isEmpty(n)) {
+			if(isEmpty(n)) {
 				return;
 			}
 			a.set(n,null);
 			int oln = getLeftNode(n);
 			int orn = getRightNode(n);
-			if(!isOutOfBounds(oln) && !isEmpty(oln)) {
+			if(!isEmpty(oln)) {
 				transferNode(oln, n);
 				n = oln;
 			}
-			if(!isOutOfBounds(orn) && !isEmpty(orn)){
+			if(!isEmpty(orn)){
 				transferNode(orn, n);
 			}
 		}
@@ -127,10 +134,10 @@ public class BSTImpl {
 			a.set(destination, a.get(origin));
 			int oln = getLeftNode(origin);
 			int orn = getRightNode(origin);
-			if(!isOutOfBounds(oln) && !isEmpty(oln)) {
+			if(!isEmpty(oln)) {
 				transferNode(oln, getLeftNode(destination));
 			}
-			if(!isOutOfBounds(orn) && !isEmpty(orn)) {
+			if(!isEmpty(orn)) {
 				transferNode(orn, getRightNode(destination));
 			}
 		}
@@ -148,11 +155,7 @@ public class BSTImpl {
 		}
 		
 		public boolean isEmpty(int n) {
-			return a.get(n) == null;
-		}
-
-		public boolean isOutOfBounds(int n) {
-			return n < 1 || n >= a.size();
+			return n < 1 || n >= this.a.size() || this.a.get(n) == null;
 		}
 	}
 	
@@ -163,7 +166,7 @@ public class BSTImpl {
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 
-		BST bst = new BST();
+		BST bst = new BST(b);
 		System.out.println(bst.getMinValue());
 		System.out.println("K = 1: " + bst.getKthMinValue(1));
 		System.out.println("K = 2: " + bst.getKthMinValue(2));
