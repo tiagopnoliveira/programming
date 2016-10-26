@@ -5,7 +5,7 @@ public class GenerateLargeIntArray {
 	static int min = 1;
 	static int max = 1000000;
 	static int mult = 1;
-	static int size = 30;
+	static int size = 25;
 
     public static void main(String[] args) {
 		
