@@ -2,18 +2,22 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateLargeIntArray {
 
+	static int min = 1;
+	static int max = 1000000;
+	static int mult = 1;
+	static int size = 30;
+
     public static void main(String[] args) {
-			int min = 0;
-			int max = 100;
-			int size = 50;
-		try {
-			min = Integer.parseInt(args[0]);
-			max = Integer.parseInt(args[1]);
-			size = Integer.parseInt(args[2]);
-		} catch (Exception e) {
-			System.out.println("usage is: java GenerateLargeIntArray <min> <max> <size>");
-			return;
-		}
+		
+		//~ try {
+			//~ min = Integer.parseInt(args[0]);
+			//~ max = Integer.parseInt(args[1]);
+			//~ mult = Integer.parseInt(args[2]);
+			//~ size = Integer.parseInt(args[3]);
+		//~ } catch (Exception e) {
+			//~ System.out.println("usage is: java GenerateLargeIntArray <min> <max> <mult> <size>");
+			//~ return;
+		//~ }
 		
 		StringBuilder result = new StringBuilder();
 		for(int i = 0; i < size; i++) {
@@ -25,7 +29,7 @@ public class GenerateLargeIntArray {
     }
 
 	private static int randInt(int min, int max) {
-		int rand = ThreadLocalRandom.current().nextInt(min,max);
+		int rand = ThreadLocalRandom.current().nextInt(min,max) * mult;
 		return rand;
 	}
 
