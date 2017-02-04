@@ -97,7 +97,7 @@ public class MazeConstruct {
 			boolean isWallRow = inWalledSection && (r%2 == 1);
 			for(int c = 0; c < n; c++) {
 				if(isWallRow) {
-					if((c == 0 && !isPassageRight) || ((c == nl - 2) && isPassageRight) || c >= nl) {
+					if((c == 0 && !isPassageRight) || ((c == nl - 2) && isPassageRight) || c > nl) {
 						rStringb.append(".");
 					} else {
 						rStringb.append("#");
