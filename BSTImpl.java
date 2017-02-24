@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 
 public class BSTImpl {
-	private static final int[] b = {8, 3, 10, 1, 6, 14, 4, 7, 13, 2};
+	private static final int[] b = {5,7,4,1};
 
 
 	private static class BST {
@@ -90,7 +90,7 @@ public class BSTImpl {
 		}
 		
 		public int getKthMinValue(int k) {
-			if(k < 1 || k > a.size()) {
+			if(k < 1 || k >= a.size()) {
 				return -1;
 			}
 			int n = getNodeMinValue(getRoot());
