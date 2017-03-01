@@ -1,5 +1,6 @@
 import java.util.*;
 
+// https://careercup.com/question?id=5748568523538432
 public class OptimizeMeetings {
 	private static class Meeting implements Comparable<Meeting> {
 		int s;
