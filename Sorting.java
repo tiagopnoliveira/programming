@@ -10,8 +10,8 @@ public class Sorting {
 //	private static int[] a = {7,3,4,1,2};
 
     public static void main(String[] args) {
-		//int l = 1024;
-		int l = Integer.MAX_VALUE/8;
+		int l = 65536;
+		//int l = Integer.MAX_VALUE/8;
 		int a[] = new int[l];
 		for(int i = 0; i < l; i++) {
 			int rand = randInt(1, 20);
@@ -23,7 +23,7 @@ public class Sorting {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 		//System.out.println("Before: " + Arrays.toString(a));
-		quickSortDualPivot(a);
+		System.out.println(quickSelectSmallestKth(a,13783));
 		//System.out.println("After : " + Arrays.toString(a));
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
@@ -200,6 +200,38 @@ public class Sorting {
 			quickSortDualPivot(a,l+1,r-1);
 		}
 		quickSortDualPivot(a,r+1,e);
+	}
+	
+	public static int quickSelectSmallestKth(int[] a, int k) {
+		quickSelectSmallestKth(a,k-1,0,a.length-1);
+		return a[k-1];
+	}
+
+	public static void quickSelectSmallestKth(int[] a, int k, int s, int e) {
+		if(s >= e) {
+			return;
+		}
+		int p = a[e];
+		int l = s;
+		int r = e;
+		while(l <= r) {
+			while(a[l] < p) {
+				l++;
+			}
+			while(a[r] > p) {
+				r--;
+			}
+			if(l <= r) {
+				swapElementsArray(a,l++,r--);
+			}
+		}
+
+		if(s < r && k <= r) {
+			quickSelectSmallestKth(a,k,s,r);
+		}
+		if(l < e && k >= l) {
+			quickSelectSmallestKth(a,k,l,e);
+		}
 	}
 	
 	private static int randInt(int min, int max) {
