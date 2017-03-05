@@ -145,6 +145,37 @@ public class BSTImplMk2 {
 			}
 			return ((float) f/n);
 		}
+		
+		public boolean checkBalanced() {
+			int l = this.t.size() - 1;
+			while(this.t.get(l) == null) {
+				l--;
+			}
+			int k = (int) (Math.log(l) / Math.log(2));
+			int m = (int) (Math.pow(2,k) + Math.pow(2,k+1) - 1) / 2;
+			boolean checkLeft = (l > m);
+			return compareTreeSides(k-1, checkLeft);
+		}
+		
+		protected boolean compareTreeSides(int k, boolean checkLeft) {
+			int leftExtreme = (int) Math.pow(2,k-1);
+			int rightExtreme = (int) Math.pow(2,k) - 1;
+			int middle = (leftExtreme + rightExtreme) / 2;
+			int s,e;
+			if(checkLeft) {
+				s = leftExtreme;
+				e = middle;
+			} else {
+				s = middle;
+				e = rightExtreme;
+			}
+			for(int i = s; i <= e; i++) {
+				if(this.t.get(i) != null) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 
 	private static Integer[] a = {445,38,446,153,404,174,118,413,170,400,96,389,14,183,25,19,174,10,208,172,254,94,304,39,319,41,428,22,310,66,302,365,128,478,479,10,73,435,122,333,229,137,318,183,10,96,409,259,181,194,272,7,212,464,446,163,37,209,151,155,21,84,171,421,153,464,428,195,15,44};
@@ -158,7 +189,7 @@ public class BSTImplMk2 {
 		bst.printArray();
 		System.out.println(bst.getMin());
 		System.out.println(bst.getMax());
-		System.out.println(bst.ratio());
+		System.out.println(bst.checkBalanced());
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
 		System.out.print("Processing time: ");
