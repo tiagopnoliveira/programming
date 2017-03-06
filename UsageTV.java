@@ -19,13 +19,17 @@ public class UsageTV {
 	//private static int[][] a = { {2,4} , {1,4} , {3,7} , {7,8} , {1,9} };
 	//private static Usage[] u = { new Usage(2,4), new Usage(1,4), new Usage(6,7) };
 	// private static Usage[] u = { new Usage(1,4), new Usage(6,8), new Usage(2,4), new Usage(7,9), new Usage(10,15) };
-	 private static Usage[] u = { new Usage(2,2), new Usage(4,4), new Usage(65535,65536), new Usage((Integer.MAX_VALUE/4)-5,Integer.MAX_VALUE/4) };
+	// private static Usage[] u = { new Usage(2,2), new Usage(4,4), new Usage(65535,65536), new Usage((Integer.MAX_VALUE/4)-5,Integer.MAX_VALUE/4) };
 	//private static Usage[] u = { new Usage(1,2), new Usage(2,3), new Usage(8,9), new Usage(7,9) };
+	private static Usage[] u = { new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,Integer.MAX_VALUE/4), new Usage(2,4), new Usage(65535,65536) };
 	
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 		System.out.println(calcUsageTV(u));
+		
+		// System.out.println(calcUsageTVMethod2(u));
+		
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
 		System.out.print("Processing time: ");
@@ -63,6 +67,34 @@ public class UsageTV {
 			}
 		}
 		return b[maxE-minS];
+	}
+	
+	public static int calcUsageTVMethod2(Usage[] usageArray) {
+		ArrayList<Usage> uList = new ArrayList<Usage>(Arrays.asList(usageArray));
+		int minS = Integer.MAX_VALUE;
+		int maxE = Integer.MIN_VALUE;
+		for(Usage u : uList) {
+			if(u.s < minS) {
+				minS = u.s;
+			}
+			if(u.e > maxE) {
+				maxE = u.e;
+			}
+		}
+		boolean[] b = new boolean[maxE - minS + 1];
+		for(Usage u : uList) {
+			for(int i = u.s - minS + 1; i <= u.e - minS; i++) {
+				b[i] = true;
+			}
+		}
+		
+		int c = 0;
+		for(int i = 0; i < b.length; i++) {
+			if(b[i]) {
+				c++;
+			}
+		}
+		return c;
 	}
 
 }
