@@ -1,5 +1,6 @@
 import java.util.Stack;
 import java.util.HashSet;
+import java.lang.Math;
 
 //~ Problem Statement
 
@@ -28,7 +29,7 @@ import java.util.HashSet;
 
 public class MultiplyAddPuzzle {
 	
-	private static final long MAX = 1000000000000000000L; // 60 bits
+	private static final long MAX = ((long) 10e18);
 
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
@@ -76,8 +77,56 @@ public class MultiplyAddPuzzle {
 
     }
     
-    // keeping this one around to help me cry myself to sleep
     public static long minimalSteps(long s, long t, long a, long b) {
+		if(s == t) {
+			return 0;
+		}
+		if(b == 1) {
+			return calculateAddingSteps(s,t,a);
+		}
+		if(b == 0) {
+			int r = calculateAddingSteps(s,t,a);
+			if(r < 0) {
+				r = calculateAddingSteps(0,t,a);
+				if(r >= 0) {
+					return r+1;
+				} else {
+					return -1;
+				}
+			}
+		}
+		int base = 0;
+		if(s == 0) {
+			if(a > 0) {
+				s = a;
+				base++;
+			} else {
+				return -1;
+			}
+		}
+		long bestCandidate = MAX+1;
+		if(b >= 2) {
+			while(s <= MAX) {
+				
+			}			
+		}
+		if(bestCandidate > MAX) {
+			return -1;
+		}
+		return bestCandidate;
+	}
+	
+	private calculateAddingSteps(int s, int t, int a) {
+		t -= a;
+		if(t % a == 0) {
+			return t/a;
+		} else {
+			return -1;
+		}
+	}
+    
+    // keeping this one around to help me cry myself to sleep
+    public static long minimalStepsNaive(long s, long t, long a, long b) {
 		if(s == t) {
 			return 0;
 		}
