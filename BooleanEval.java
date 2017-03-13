@@ -18,8 +18,8 @@ public class BooleanEval {
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
-		ArrayList<Result> res = evaluate("1^0&1|1", 0);
-		//ArrayList<Result> res = evaluate("1^0&1|1&0^1|1|0^0&1^0", 1);
+		//ArrayList<Result> res = evaluate("1^0&1|1", 0);
+		ArrayList<Result> res = evaluate("1^0&1|1&0^1|1|0^0&1^0", 1);
 		for(Result r : res) {
 			System.out.print(r.s);
 			System.out.print(" -> " + r.v);
