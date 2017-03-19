@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 
 public class BSTImpl {
-	private static final int[] b = {5,7,4,1};
+	private static final int[] b = {5,6,3,1,2,4};
 
 
 	private static class BST {
@@ -157,6 +157,50 @@ public class BSTImpl {
 		public boolean isEmpty(int n) {
 			return n < 1 || n >= this.a.size() || this.a.get(n) == null;
 		}
+		
+		public int findDistanceToNode(int n, int v) {
+			int distance = 0;
+			while(!isEmpty(n) && getValue(n) != v) {
+				if(getValue(n) > v) {
+					n = getLeftNode(n);
+				} else {
+					n = getRightNode(n);
+				}
+				distance++;
+			}
+			if(!isEmpty(n) && getValue(n) == v) {
+				return distance;
+			} 
+			return -1;
+		}
+		
+		public int findDistanceBetweenNodes(int v1, int v2) {
+			int n = this.getRoot();
+			if(v1 == v2) {
+				return 0;
+			}
+			if(v1 > v2) {
+				int t = v1;
+				v1 = v2;
+				v2 = t;				
+			}
+			while(!isEmpty(n) && (getValue(n) < v1 || getValue(n) > v2)) { 
+				if(getValue(n) < v1) {
+					n = getRightNode(n);
+				} else {
+					n = getLeftNode(n);
+				}
+			}
+			if(isEmpty(n)) {
+				return -1;
+			}
+			int distV1 = findDistanceToNode(n,v1);
+			int distV2 = findDistanceToNode(n,v2);
+			if(distV1 < 0 || distV2 < 0) {
+				return -1;
+			}
+			return distV1 + distV2;
+		}
 	}
 	
 	
@@ -167,17 +211,7 @@ public class BSTImpl {
 		long startTime = System.currentTimeMillis();
 
 		BST bst = new BST(b);
-		System.out.println(bst.getMinValue());
-		System.out.println("K = 1: " + bst.getKthMinValue(1));
-		System.out.println("K = 2: " + bst.getKthMinValue(2));
-		System.out.println("K = 3: " + bst.getKthMinValue(3));
-		System.out.println("K = 4: " + bst.getKthMinValue(4));
-		System.out.println("K = 5: " + bst.getKthMinValue(5));
-		System.out.println("K = 6: " + bst.getKthMinValue(6));
-		System.out.println("K = 7: " + bst.getKthMinValue(7));
-		System.out.println("K = 8: " + bst.getKthMinValue(8));
-		System.out.println("K = 9: " + bst.getKthMinValue(9));
-		System.out.println("K = 10: " + bst.getKthMinValue(10));
+		System.out.println(bst.findDistanceBetweenNodes(9,2));
 
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();

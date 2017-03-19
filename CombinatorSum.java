@@ -22,7 +22,7 @@ public class CombinatorSum {
 		return combinatorSum(a,n,memo);
 	}
 
-    
+    // TODO: Find a more efficient way of doing this. Worst time is exponencial
     public static boolean combinatorSum(int[] a, int n, HashSet<Integer> memo) {
 		if(n < 0 || memo.contains(n)) {
 			return false;
