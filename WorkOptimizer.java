@@ -1,5 +1,106 @@
+import java.util.*;
+
 // https://careercup.com/question?id=6303130607157248
 public class WorkOptimizer {
+	public static class Heap {
+		ArrayList<Integer> h;
+		
+		public Heap() {
+			h = new ArrayList<Integer>();
+			h.add(null);
+		}
+		
+		public Heap(int[] a) {
+			for(int i = 0; i < a.length; i++) {
+				add(a[i]);
+			}
+		}
+		
+		public int root() {
+			return 1;
+		}
+		
+		public int left(int p) {
+			return p*2;
+		}
+		
+		public int right(int p) {
+			return (p*2) + 1;
+		}
+		
+		public int parent(int p) {
+			return p/2;
+		}
+		
+		public void add(int v) {
+			h.add(v);
+			bubbleUp(h.size()-1);
+		}
+		
+		private void bubbleUp(int p) {
+			while(!isEmpty(p) && !isEmpty(parent(p))) {
+				if(get(parent(p)) < get(p)) {
+					swap(p,parent(p));
+				}
+				p = parent(p);
+			}
+		}
+		
+		public void addValueToMin(int v) {
+			h.set(root(),h.get(root()) + v);
+			bubbleDown(root());
+			System.out.println(Arrays.toString(h.toArray()));
+		}
+		
+		public int getMaxValue() {
+			int max = h.get(1);
+			for(int i = 2; i < h.size(); i++) {
+				if(h.get(i) > max) {
+					max = h.get(i);
+				}
+			}
+			return max;
+		}
+		
+		public int getMinValue() {
+			return h.get(1);
+		}
+		
+		private void bubbleDown(int p) {
+			while(!isEmpty(p)) {
+				int v = get(p);
+				int nextP = -1;
+				if(!isEmpty(left(p)) && get(left(p)) < v) {
+					nextP = left(p);
+					v = get(nextP);
+				}
+				if(!isEmpty(right(p)) && get(right(p)) < v) {
+					nextP = right(p);
+				}
+				if(nextP > 0) {
+					swap(p,nextP);
+				}
+				p = nextP;
+			}
+		}
+		
+		private int get(int p) {
+			return h.get(p);
+		}
+		
+		private void swap(int p1, int p2) {
+			if(p1 == p2) {
+				return;
+			}
+			Integer t = h.get(p1);
+			h.set(p1, h.get(p2));
+			h.set(p2, t);
+		}
+		
+		public boolean isEmpty(int p) {
+			return p < 1 || p >= h.size() || h.get(p) == null;
+		}
+	}
 
 	private static int[] a = {2,2,3,7,1};
 
@@ -45,27 +146,14 @@ public class WorkOptimizer {
 	
 	public static int getMini(int[] a, int k) {
 		descendingSort(a);
-		int[] workAssigned = new int[k];
+		Heap workAssigned = new Heap();
+		for(int i = 0; i < k; i++) {
+			workAssigned.add(0);
+		}
+		
 		for(int i = 0; i < a.length; i++) {
-			int min = getMinPosArray(workAssigned);
-			workAssigned[min] += a[i];
+			workAssigned.addValueToMin(a[i]);
 		}
-		int max = workAssigned[0];
-		for(int i = 1; i < k; i++) {
-			if(a[i] > max) {
-				max = a[i];
-			}
-		}
-		return max;
-	}
-	
-	private static int getMinPosArray(int[] a) {
-		int min = 0;
-		for(int i = 1; i < a.length; i++) {
-			if(a[i] < a[min]) {
-				min = i;
-			}
-		}
-		return min;
+		return workAssigned.getMaxValue();
 	}
 }
