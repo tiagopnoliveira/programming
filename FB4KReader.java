@@ -59,8 +59,7 @@ public class FB4KReader {
 
     public static int read(Character[] data, int size) {
 		LinkedList<Character> dataList = new LinkedList<Character>();
-		int resultSize = 0;
-		while(!reader4K.isEmpty() && resultSize < size) {
+		while(!reader4K.isEmpty() && dataList.size() < size) {
 			if(buffer.isEmpty()) {
 				char[] tmpBuffer = new char[4096];
 				int tmpSize = reader4K.read4K(tmpBuffer);
@@ -68,13 +67,12 @@ public class FB4KReader {
 					buffer.add(tmpBuffer[i]);
 				}
 			}
-			while(!buffer.isEmpty() && resultSize < size) {
+			while(!buffer.isEmpty() && dataList.size() < size) {
 				dataList.add(buffer.poll());
-				resultSize++;
 			}
 		}
 		data = dataList.toArray(new Character[0]);
-		return resultSize;
+		return dataList.size();
 	}
 
 }
