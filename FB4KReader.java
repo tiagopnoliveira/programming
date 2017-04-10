@@ -60,18 +60,16 @@ public class FB4KReader {
     public static int read(char[] data, int size) {
 		data = new char[size];
 		int resultSize = 0;
-		while(!reader4K.isEmpty()) {
-			while(!buffer.isEmpty() && resultSize < size) {
-				data[resultSize++] = buffer.poll();
-			}
+		while(!reader4K.isEmpty() && resultSize < size) {
 			if(buffer.isEmpty()) {
 				char[] tmpBuffer = new char[4096];
 				int tmpSize = reader4K.read4K(tmpBuffer);
 				for(int i = 0; i < tmpSize; i++) {
 					buffer.add(tmpBuffer[i]);
 				}
-			} else {
-				break;
+			}
+			while(!buffer.isEmpty() && resultSize < size) {
+				data[resultSize++] = buffer.poll();
 			}
 		}
 		return resultSize;
