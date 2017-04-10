@@ -32,7 +32,7 @@ public class FB4KReader {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 		System.out.println("Current size: " + reader4K.getSize());
-		char[] data = null;
+		Character[] data = null;
 		System.out.println("Read : " + read(data, 1200));
 		System.out.println("Current size: " + reader4K.getSize());
 		System.out.println("Read : " + read(data, 2400));
@@ -57,8 +57,8 @@ public class FB4KReader {
     
     private static Queue<Character> buffer = new LinkedList<Character>();
 
-    public static int read(char[] data, int size) {
-		data = new char[size];
+    public static int read(Character[] data, int size) {
+		LinkedList<Character> dataList = new LinkedList<Character>();
 		int resultSize = 0;
 		while(!reader4K.isEmpty() && resultSize < size) {
 			if(buffer.isEmpty()) {
@@ -69,9 +69,11 @@ public class FB4KReader {
 				}
 			}
 			while(!buffer.isEmpty() && resultSize < size) {
-				data[resultSize++] = buffer.poll();
+				dataList.add(buffer.poll());
+				resultSize++;
 			}
 		}
+		data = dataList.toArray(new Character[0]);
 		return resultSize;
 	}
 
