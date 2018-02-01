@@ -14,20 +14,14 @@ public class FizzBuzz {
     
     public static void fizzBuzz(int n) {
 		for(int i = 1; i <= n; i++) {
-			boolean gotFizzedOrBuzzedBro = false;
+			System.out.print(i + " ");
 			if(i % 3 == 0) {
-				gotFizzedOrBuzzedBro = true;
 				System.out.print("Fizz");
 			}
 			if(i % 5 == 0) {
-				gotFizzedOrBuzzedBro = true;
 				System.out.print("Buzz");
 			}
-			if(gotFizzedOrBuzzedBro) {
-				System.out.println();
-			} else {
-				System.out.println(i);
-			}
+			System.out.println();
 		}
 	}
 

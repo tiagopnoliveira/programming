@@ -28,6 +28,28 @@ public class FB4KReader {
 		}
 	}
 
+    private static Reader4K reader4K = new Reader4K(40000);
+    
+    private static Queue<Character> buffer = new LinkedList<Character>();
+
+    public static int read(Character[] data, int size) {
+		LinkedList<Character> dataList = new LinkedList<Character>();
+		while(!reader4K.isEmpty() && dataList.size() < size) {
+			if(buffer.isEmpty()) {
+				char[] tmpBuffer = new char[4096];
+				int tmpSize = reader4K.read4K(tmpBuffer);
+				for(int i = 0; i < tmpSize; i++) {
+					buffer.add(tmpBuffer[i]);
+				}
+			}
+			while(!buffer.isEmpty() && dataList.size() < size) {
+				dataList.add(buffer.poll());
+			}
+		}
+		data = dataList.toArray(new Character[0]);
+		return dataList.size();
+	}
+
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
@@ -50,29 +72,5 @@ public class FB4KReader {
 		System.out.print("Processing time: ");
 		System.out.format("%.3f", duration / 1000);
 		System.out.println(" seconds.");
-
     }
-    
-    private static Reader4K reader4K = new Reader4K(13500);
-    
-    private static Queue<Character> buffer = new LinkedList<Character>();
-
-    public static int read(Character[] data, int size) {
-		LinkedList<Character> dataList = new LinkedList<Character>();
-		while(!reader4K.isEmpty() && dataList.size() < size) {
-			if(buffer.isEmpty()) {
-				char[] tmpBuffer = new char[4096];
-				int tmpSize = reader4K.read4K(tmpBuffer);
-				for(int i = 0; i < tmpSize; i++) {
-					buffer.add(tmpBuffer[i]);
-				}
-			}
-			while(!buffer.isEmpty() && dataList.size() < size) {
-				dataList.add(buffer.poll());
-			}
-		}
-		data = dataList.toArray(new Character[0]);
-		return dataList.size();
-	}
-
 }
