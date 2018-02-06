@@ -89,10 +89,10 @@ public class Queens {
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
-		List<BoardState> states = positionQueens(12,12);
-//		for(BoardState s : states) {
-//			s.print();
-//		}
+		List<BoardState> states = positionQueens(8,8);
+		for(BoardState s : states) {
+			s.print();
+		}
 		System.out.println("Total amount of states: " + states.size());
 		List<Integer[]> res = new ArrayList<Integer[]>();
 		placeQueensByBook(0, new Integer[GRID_SIZE], res);
