@@ -62,7 +62,7 @@ public class Queens {
 			System.out.println();
 			System.out.print("    ");
 			for(int i = 0; i < size; i++) {
-				System.out.print(" ̲ ̲");
+				System.out.print("__");
 			}
 			System.out.println();
 			for(int r = 0; r < size; r++) {
@@ -78,7 +78,7 @@ public class Queens {
 			}
 			System.out.print("    ");
 			for(int i = 0; i < size; i++) {
-				System.out.print("‾‾");
+				System.out.print("--");
 			}
 			System.out.println();
 		}
@@ -90,9 +90,9 @@ public class Queens {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 		List<BoardState> states = positionQueens(12,12);
-		for(BoardState s : states) {
-			s.print();
-		}
+//		for(BoardState s : states) {
+//			s.print();
+//		}
 		System.out.println("Total amount of states: " + states.size());
 		List<Integer[]> res = new ArrayList<Integer[]>();
 		placeQueensByBook(0, new Integer[GRID_SIZE], res);
