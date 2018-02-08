@@ -94,7 +94,8 @@ public class BSTImplMk2 {
 				while(check(left(minP))) {
 					minP = left(minP);
 				}
-				move(minP, p);
+				this.t.set(minP, this.t.get(p));
+				delete(minP);
 			} else if(check(left(p))) {
 				move(left(p),p);
 			} else if(check(right(p))) {
@@ -201,14 +202,19 @@ public class BSTImplMk2 {
 		// Core Function here
 		//BST<Integer> bst = new BST<Integer>(a);
 		BST<Integer> bst = new BST<Integer>();
-		bst.insert(7);
-		bst.insert(3);
-		bst.insert(8);
-		bst.insert(1);
+		bst.insert(6);
+		bst.insert(5);
+		bst.insert(9);
 		bst.insert(4);
+		bst.insert(8);
+		bst.insert(14);
+		bst.insert(10);
+		bst.insert(15);
+		bst.insert(11);
+
 		bst.printArray();
 		
-		bst.delete(bst.root());
+		bst.delete(3);
 		bst.printArray();
 		
 		double duration = System.currentTimeMillis() - startTime;
