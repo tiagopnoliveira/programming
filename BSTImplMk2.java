@@ -160,6 +160,64 @@ public class BSTImplMk2 {
 			return ((float) f/n);
 		}
 		
+		public int distanceBetweenValues(T v1, T v2) {
+			if(!less(v1,v2)) {
+				T tmp = v1;
+				v1 = v2;
+				v2 = tmp;
+			}
+			int p = root();
+			while(check(p)) {
+				if(less(v1,t.get(p)) && less(v2,t.get(p))) {
+					p = left(p);					
+				} else if(!less(v1,t.get(p)) && !less(v2,t.get(p))) {
+					p = right(p);
+				} else {
+					break;
+				}
+			}
+			if(!check(p)) {
+				return -1;
+			}
+			
+			int pv1 = p;
+			int d = 0;
+			while(check(pv1)) {
+				if(v1.compareTo(t.get(pv1)) == 0) {
+					break;
+				}
+				if(less(v1,t.get(pv1))) {
+					pv1 = left(pv1);
+				} else {
+					pv1 = right(pv1);
+				}
+				d++;
+			}
+			
+			if(!check(pv1)) {
+				return -1;
+			}
+			
+			int pv2 = p;
+			while(check(pv2)) {
+				if(v2.compareTo(t.get(pv2)) == 0) {
+					break;
+				}
+				if(less(v2,t.get(pv2))) {
+					pv2 = left(pv2);
+				} else {
+					pv2 = right(pv2);
+				}
+				d++;
+			}
+
+			if(!check(pv2)) {
+				return -1;
+			}
+			
+			return d;
+		}
+		
 		public boolean checkBalanced() {
 			int l = this.t.size() - 1;
 			while(this.t.get(l) == null) {
@@ -214,8 +272,9 @@ public class BSTImplMk2 {
 
 		bst.printArray();
 		
-		bst.delete(3);
-		bst.printArray();
+		//~ bst.delete(3);
+		//~ bst.printArray();
+		System.out.println(bst.distanceBetweenValues(5,11));
 		
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
