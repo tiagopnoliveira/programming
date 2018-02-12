@@ -2,7 +2,6 @@ import java.util.*;
 import java.lang.Math;
 
 public class Burner {
-
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
