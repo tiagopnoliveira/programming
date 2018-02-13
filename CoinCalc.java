@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class CoinCalc {
 
-	private static final int[] v = {10,8};
-	private static final int n = 100;
+	private static final int[] v = {25,10,5,1};
+	private static final int n = 1000;
 
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
@@ -17,10 +17,7 @@ public class CoinCalc {
 		System.out.println(" seconds.");
 		System.out.println();
 		startTime = System.currentTimeMillis();
-		res = coinCalcRec(n);
-		//~ for(Integer[] i : res) {
-			//~ System.out.println(Arrays.toString(i));
-		//~ }
+		res = calcCoinsRec(n);
 		duration = System.currentTimeMillis() - startTime;
 		System.out.println("Total results using recursive method: " + res.size());
 		System.out.print("Processing time for recursive method: ");
@@ -74,35 +71,35 @@ public class CoinCalc {
 		return copy;
 	}
 	
-	public static Set<Integer[]> coinCalcRec(int n) {
+    public static Set<Integer[]> calcCoinsRec(int n) {
+		Set<Integer[]> result = new HashSet<Integer[]>();
 		Integer[] c = new Integer[v.length];
 		Arrays.fill(c,0);
-		Set<Integer[]> res = new HashSet<Integer[]>();
-		int maxVal = 0;
-		for(int i = 0; i < v.length; i++) {
-			if(v[i] > maxVal) {
-				maxVal = v[i];
-			}
-		}
-		coinCalcRecAux(res, n, c, maxVal);
-		return res;
+		calcCoinsRec(n,c,result);
+		return result;
 	}
 	
-	private static void coinCalcRecAux(Set<Integer[]> res, int n, Integer[] c, int maxVal) {
+	public static void calcCoinsRec(int n, Integer[] c, Set<Integer[]> result) {
+		if(n == 0) {
+			result.add(c);
+			return;
+		}
 		if(n < 0) {
 			return;
 		}
-		if(n == 0) {
-			res.add(c);
-			return;
-		}
 		for(int i = 0; i < v.length; i++) {
-			//~ if(v[i] > maxVal) {
-				//~ continue;
-			//~ }
-			Integer[] newC = copyIntegers(c);
-			newC[i]++;
-			coinCalcRecAux(res, n-v[i], newC, v[i]);
+			boolean noSmallerCoins = true;
+			for(int j = i+1; j < v.length; j++) {
+				noSmallerCoins &= c[j] == 0;
+			}
+			if(noSmallerCoins) {
+				Integer[] newC = new Integer[v.length];
+				for(int j = 0; j < v.length; j++) {
+					newC[j] = c[j];
+				}
+				newC[i]++;
+				calcCoinsRec(n-v[i],newC,result);
+			}
 		}
 	}
 	
