@@ -6,6 +6,7 @@ public class Burner {
 		long startTime = System.currentTimeMillis();
 		// Core Function here
 
+
 		double duration = System.currentTimeMillis() - startTime;
 		System.out.println();
 		System.out.print("Processing time: ");
