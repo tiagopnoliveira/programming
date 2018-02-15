@@ -3,7 +3,7 @@ import java.util.*;
 public class OneHundrer {
 	
 	private static final int target = 100;
-	private static final int[] numbers = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	private static final int[] numbers = {1,2,3,4,5,6,7,8,9,10};
 	private static final List<String> results = new ArrayList<String>();
 	private static long counter = 0;
 	
