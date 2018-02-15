@@ -1,6 +1,3 @@
-import java.util.*;
-import java.lang.Math;
-
 public class PairwiseBitSwap {
 	
 	//private static int[] a = {1,2,3,4};
