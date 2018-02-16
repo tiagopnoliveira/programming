@@ -1,12 +1,12 @@
 import java.lang.Math;
 
 public class CountTwos {
-	private static int n = 6553514;
+	private static int n = 5553514;
 	
 	private static class CountTwoAnalyzer {
-		public int mostSignificantNumber;
-		public int remainder;
-		public int magnitude;
+		public int mostSignificantNumber; // 5
+		public int remainder; // 553514
+		public int magnitude; // 6
 		
 		public CountTwoAnalyzer(int n) {
 			this.remainder = 0;
@@ -47,7 +47,7 @@ public class CountTwos {
 		CountTwoAnalyzer c2a = new CountTwoAnalyzer(n);
 		
 		// First we check how many 2´s occur at that order of magnitude.
-		// If n=300, we can assume we saw 200 instances of 2s while n was 2xx.
+		// If n=300, we can assume we saw 100 instances of 2s while n was 2xx.
 		int add = 0;
 		if(c2a.mostSignificantNumber == 2) {
 			add = c2a.remainder;
