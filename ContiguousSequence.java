@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.Math;
 
 public class ContiguousSequence {
-	static int[] a = {-8,-6,3,-10,-9,4,-9,4,-9,2,-1,-14,-10};
+	static int[] a = {-8,-6,3,-10,-9,4,-5,4,-5,2,-1,-14,-10};
 	
     public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
@@ -41,10 +41,11 @@ public class ContiguousSequence {
 			int sum = a[s];
 			for(int j = i+1; j < positiveIndexes.size(); j++) {
 				int e = positiveIndexes.get(j);
-				for(int k = s; k <= e; k++) {
+				for(int k = s+1; k <= e; k++) {
 					sum += a[k];
 				}
 				if(sum > bestSum) {
+					System.out.println(sum);
 					bestSum = sum;
 					bestStart = s;
 					bestEnd = e;
