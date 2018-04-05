@@ -95,7 +95,11 @@ public class BSTImpl {
 					minP = left(minP);
 				}
 				this.t.set(minP, this.t.get(p));
-				delete(minP);
+				if(check(right(minP))) {
+					move(right(minP),minP);
+				} else {
+					t.set(minP,null);
+				}
 			} else if(check(left(p))) {
 				move(left(p),p);
 			} else if(check(right(p))) {
@@ -106,6 +110,10 @@ public class BSTImpl {
 		}
 		
 		public void move(int o, int d) {
+			if(!check(o)) {
+				t.set(d,null);
+				return;
+			}
 			this.t.set(d,get(o));
 			this.t.set(o,null);
 			if(check(left(o))) {
